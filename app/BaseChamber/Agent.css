@@ -1,0 +1,86 @@
+/* Agent.css */
+.chamber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  color: #fff;
+  font-family: "Orbitron", sans-serif;
+}
+
+.agent-box {
+  position: relative;
+  cursor: pointer;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
+  text-align: center;
+  width: 300px;
+  height: 320px;
+  transition: all 0.5s ease;
+}
+.agent-box:hover {
+  width: 900px;
+  height: 400px;
+  box-shadow: 0px 0px 30px rgba(245, 0, 87, 1);
+}
+
+.agent-name h1 {
+  font-size: 2.5rem;
+  color: #00d4ff; /* Ice blue color */
+  letter-spacing: 2px;
+}
+
+.last-interaction {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  color: #f50057; /* Neon pink color */
+}
+
+.last-interaction i {
+  color: #00d4ff; /* Ice blue color */
+}
+
+.button-container {
+  display: flex;
+  gap: 60px;
+  margin-top: 20px;
+  justify-content: center;
+  position: absolute;
+  bottom: 15px;
+  left: 40%;
+}
+.peek-button {
+  border: 2px solid #f50057;
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.peek-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgba(245, 0, 87, 0.8);
+}
+
+/* Golden Deploy button */
+.deploy-button {
+  border: 2px solid #ffd700;
+  color: #ffc800;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.deploy-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8);
+}

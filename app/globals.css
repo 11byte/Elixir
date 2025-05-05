@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&family=Audiowide&family=Monoton&display=swap");
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #00000d;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* globals.css */
+
+/* Styling for the navbar items */
+.navbar-item {
+  background-color: "transparent";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Styling for the container of the buttons */
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* Base styling for the buttons */
+.auth-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+
+  color: #aee3f9;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Hover effect */
+.auth-button:hover {
+  color: #31c1ff;
+  transform: scale(1.2);
+}
