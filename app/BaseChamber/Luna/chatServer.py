@@ -37,7 +37,7 @@ def generate_text_with_gemini(prompt):
     prompt = f"Act as a therapist and answer my question in 50 words which is: {prompt}"
    
 
-    genai.configure(api_key="AIzaSyBva2qqvNun5SYuXAqI-pmGmot_n5U4MH0")
+    genai.configure(api_key="GEMINI_API_KEY")
     model = genai.GenerativeModel("gemini-1.5-pro-latest")
    
 
