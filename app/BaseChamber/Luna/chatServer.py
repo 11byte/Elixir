@@ -4,8 +4,13 @@ import torch
 from flask_cors import CORS
 import google.generativeai as genai
 
+import time
+from google.api_core.exceptions import ResourceExhausted, GoogleAPIError
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS to allow frontend communication
+
+
 
 # Load the fine-tuned model and tokenizer (default model)
 model_path = r"C:\Users\omkar\OneDrive\Desktop\elixir\app\scripts\fine_tuned_model\checkpoint-5250"
@@ -31,23 +36,39 @@ def generate_text(prompt, max_length=100):
         )
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
+
 def generate_text_with_gemini(prompt):
-   
-    
+    # Add context to the prompt
     prompt = f"Act as a therapist and answer my question in 50 words which is: {prompt}"
-   
 
+    # Configure API key
     genai.configure(api_key="AIzaSyBva2qqvNun5SYuXAqI-pmGmot_n5U4MH0")
-    model = genai.GenerativeModel("gemini-1.5-pro-latest")
-   
+    # models = genai.list_models()
+    # for model in models:
+    #     print(f"{model.name} -> {model.supported_generation_methods}")
+    # Load the model
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
-        
-    response = model.generate_content(prompt)
-    # Return the generated text from Gemini
-    if response and response.text:
-        return response.text
-    else:
-        return "Error: No response received from Gemini."
+
+    # Retry logic for rate-limiting or transient issues
+    for attempt in range(5):
+        try:
+            response = model.generate_content(prompt)
+            if response and response.text:
+                return response.text.strip()
+            else:
+                return "Error: No response text received from Gemini."
+        except ResourceExhausted as e:
+            wait_time = 2 ** attempt  # Exponential backoff
+            print(f"[Warning] Rate limit exceeded. Retrying in {wait_time} seconds...")
+            time.sleep(wait_time)
+        except GoogleAPIError as e:
+            return f"API Error: {e.message}"
+        except Exception as e:
+            return f"Unexpected Error: {str(e)}"
+
+    return "Error: Failed to get response from Gemini after multiple retries."
+
 
 @app.route('/chat', methods=['POST'])
 def chat():
