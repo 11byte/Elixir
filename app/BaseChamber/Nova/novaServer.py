@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyBva2qqvNun5SYuXAqI-pmGmot_n5U4MH0")
+genai.configure(api_key="GEMINI_API_KEY")
 model = genai.GenerativeModel("gemini-1.5-pro-latest")
 
 def get_profession_concept(profession):

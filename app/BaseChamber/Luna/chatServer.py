@@ -40,35 +40,19 @@ def generate_text(prompt, max_length=100):
 def generate_text_with_gemini(prompt):
     # Add context to the prompt
     prompt = f"Act as a therapist and answer my question in 50 words which is: {prompt}"
+   
 
-    # Configure API key
-    genai.configure(api_key="AIzaSyBva2qqvNun5SYuXAqI-pmGmot_n5U4MH0")
-    # models = genai.list_models()
-    # for model in models:
-    #     print(f"{model.name} -> {model.supported_generation_methods}")
-    # Load the model
-    model = genai.GenerativeModel("gemini-1.5-flash-latest")
+    genai.configure(api_key="GEMINI_API_KEY")
+    model = genai.GenerativeModel("gemini-1.5-pro-latest")
+   
 
-
-    # Retry logic for rate-limiting or transient issues
-    for attempt in range(5):
-        try:
-            response = model.generate_content(prompt)
-            if response and response.text:
-                return response.text.strip()
-            else:
-                return "Error: No response text received from Gemini."
-        except ResourceExhausted as e:
-            wait_time = 2 ** attempt  # Exponential backoff
-            print(f"[Warning] Rate limit exceeded. Retrying in {wait_time} seconds...")
-            time.sleep(wait_time)
-        except GoogleAPIError as e:
-            return f"API Error: {e.message}"
-        except Exception as e:
-            return f"Unexpected Error: {str(e)}"
-
-    return "Error: Failed to get response from Gemini after multiple retries."
-
+        
+    response = model.generate_content(prompt)
+    # Return the generated text from Gemini
+    if response and response.text:
+        return response.text
+    else:
+        return "Error: No response received from Gemini."
 
 @app.route('/chat', methods=['POST'])
 def chat():
